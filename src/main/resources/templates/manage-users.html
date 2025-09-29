@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Users</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <div class="container">
+        <h1>User Management</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Username</th>
+                    <th>Roles</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${#strings.arrayJoin(user.roles, ', ')}"></td>
+                    <td>
+                        <div class="action-buttons">
+                            <form th:action="@{/admin/users/delete/{id}(id=${user.id})}" method="post">
+                                <button type="submit" th:if="${!#strings.contains(user.username, 'admin')}" onclick="return confirm('Are you sure you want to delete this user?');">
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

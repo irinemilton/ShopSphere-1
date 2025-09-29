@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ShopSphere - Register</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <div class="container">
+        <form th:action="@{/register}" th:object="${userDto}" method="post">
+            <h1 style="text-align:center;">Register New Account</h1>
+            <div th:if="${param.error}"><p style="color:red;" th:text="${param.message}"></p></div>
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" th:field="*{username}" required/>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" th:field="*{password}" required/>
+            </div>
+            <div>
+                <label for="role">Register as:</label>
+                <select id="role" th:field="*{role}" onchange="toggleAdminSecret()">
+                    <option value="USER">User</option>
+                    <option value="ADMIN">Admin</option>
+                </select>
+            </div>
+            <div id="adminSecretField" style="display:none;">
+                <label for="adminSecretKey">Admin Secret Key:</label>
+                <input type="password" id="adminSecretKey" th:field="*{adminSecretKey}"/>
+            </div>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <script>
+        function toggleAdminSecret() {
+            var role = document.getElementById('role').value;
+            var secretField = document.getElementById('adminSecretField');
+            if (role === 'ADMIN') {
+                secretField.style.display = 'block';
+            } else {
+                secretField.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

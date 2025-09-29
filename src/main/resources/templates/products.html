@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ShopSphere - Products</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <div class="hero-section">
+        <h1>Discover Our Collection</h1>
+        <p>Futuristic and elegant products, curated just for you.</p>
+    </div>
+    <div class="container">
+        <div class="product-grid">
+            <div class="product-card" th:each="product : ${products}">
+                <div class="product-image-container">
+                    <img th:src="${product.imageUrl}" alt="Product Image" class="product-image" onerror="this.onerror=null;this.src='https://via.placeholder.com/300x200.png?text=No+Image';">
+                </div>
+                <div class="product-details">
+                    <h2 class="product-name" th:text="${product.name}"></h2>
+                    <p class="product-description" th:text="${product.description}"></p>
+                    <p class="product-price" th:text="'$' + ${#numbers.formatDecimal(product.price, 1, 2)}"></p>
+                </div>
+                <div class="product-action">
+                    <form th:action="@{/cart/add/{productId}(productId=${product.id})}" method="post">
+                        <button type="submit">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

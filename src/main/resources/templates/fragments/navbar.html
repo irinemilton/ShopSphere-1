@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<nav th:fragment="navbar" class="navbar">
+    <a class="nav-brand" th:href="@{/}">ShopSphere</a>
+    <div class="nav-links">
+        <a th:href="@{/products}">Products</a>
+        <a th:href="@{/cart}">My Cart</a>
+        <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin}">Admin Dashboard</a>
+        <a sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
+        <a sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
+    </div>
+</nav>
+</body>
+</html>

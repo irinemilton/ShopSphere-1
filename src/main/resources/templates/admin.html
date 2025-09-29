@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <div class="container">
+        <div class="dashboard-header">
+            <h1>Admin Dashboard</h1>
+            <p>Select an option below to manage your store.</p>
+        </div>
+        <div class="dashboard-menu">
+            <a th:href="@{/admin/users}" class="dashboard-card">
+                <h2>Manage Users</h2>
+                <p>View and delete registered users.</p>
+            </a>
+            <a th:href="@{/admin/products}" class="dashboard-card">
+                <h2>Manage Products</h2>
+                <p>Add, edit, or delete products from the catalog.</p>
+            </a>
+        </div>
+    </div>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>
